@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {setCategory} from "../redux/reducers/filterReducer";
+import React  from "react";
+import {setCategory} from "../../../redux/reducers/filterReducer";
 import {useDispatch, useSelector} from "react-redux";
 
 const Categories = ( {items} ) => {

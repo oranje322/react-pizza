@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useDispatch} from "react-redux";
-import {setSortBy} from "../redux/reducers/filterReducer";
+import {setSortBy} from "../../../redux/reducers/filterReducer";
 
 const SortPopup = ({sortPopupItems, activeSortType}) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
@@ -9,8 +9,6 @@ const SortPopup = ({sortPopupItems, activeSortType}) => {
     const dispatch = useDispatch();
 
     const sortRef = useRef();
-
-    // const sortBy = sortPopupItems.find(obj => obj.type === activeSortType)
 
     useEffect ( () => {
         document.body.addEventListener('click', handleOutsideClick)

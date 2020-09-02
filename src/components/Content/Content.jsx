@@ -1,16 +1,18 @@
-import React, {useEffect, useState} from "react";
-import Categories from "../Categories";
-import SortPopup from "../SortPopup";
-import PizzaBlock from "../PizzaBlock";
+import React, {useEffect} from "react";
+import Categories from "./Categories/Categories";
+import SortPopup from "./SortPopup/SortPopup";
+import PizzaBlock from "./PizzaBlock/PizzaBlock";
 import {useDispatch, useSelector} from "react-redux";
 import {getPizzas,} from "../../redux/reducers/pizzasReducer";
+import {addPizzaToCart} from "../../redux/reducers/cartReducer";
 
 const Content = () => {
-    const {pizzas, category, sortBy} = useSelector((state) => {
+    const {pizzas, category, sortBy, cartItems} = useSelector((state) => {
         return {
             pizzas: state.pizzas.items,
             category: state.filter.category,
-            sortBy: state.filter.sortBy
+            sortBy: state.filter.sortBy,
+            cartItems: state.cart.items
         }
     })
     const dispatch = useDispatch();
@@ -19,11 +21,16 @@ const Content = () => {
 
     }, [category, sortBy]);
 
+    const onAddPizzaToCart = (pizzaObj) => {
+        dispatch(addPizzaToCart(pizzaObj))
+
+    }
+
 
 
     const categoriesItems = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
     const sortPopupItems = [{name: 'популярности', type: 'popular'}, { name: 'цене', type: 'price' }, { name: 'алфавиту', type: 'name' }];
-    const popupitems = ['популярности', 'цене',  'алфавиту'];
+
 
     return (
         <>
@@ -39,17 +46,16 @@ const Content = () => {
                     <div className="content__items">
                         { pizzas &&
                         pizzas.map(pizza => {
+
                             return (
 
-                                <PizzaBlock key={pizza.id} {...pizza} />
+                                <PizzaBlock key={pizza.id}
+                                            onAddPizzaToCart={onAddPizzaToCart}
+                                            howManyPizzasAdded={cartItems[pizza.id] && cartItems[pizza.id].length}
+                                            {...pizza} />
                             )
                         })
                         }
-
-                        {/*{  category === 0 ? pizzas.map(pizza => <PizzaBlock key={pizza.id} {...pizza}  />) :*/}
-                        {/*pizzas.filter(pizza => pizza.category === category).map(pizza => <PizzaBlock key={pizza.id} {...pizza} />)*/}
-                        {/*}*/}
-
 
                     </div>
                 </div>

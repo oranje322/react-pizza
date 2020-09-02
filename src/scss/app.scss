@@ -28,7 +28,7 @@ body {
   &__items {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   &__top {
@@ -81,6 +81,8 @@ body {
     align-items: center;
     cursor: pointer;
     @include noselect();
+    background-color: transparent;
+    border: none;
 
     span {
       display: inline-block;
